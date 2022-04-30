@@ -1,0 +1,34 @@
+{
+  "name": "ongaku-guesser",
+  "version": "1.0.0",
+  "description": "Jogo para adivinhação de músicas",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "serve": "pm2 start app.js --name ongaku-guesser"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Davi-Coelho/ongaku-guesser.git"
+  },
+  "keywords": [
+    "música",
+    "wordle",
+    "adivinhar"
+  ],
+  "author": "Davi Coelho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Davi-Coelho/ongaku-guesser/issues"
+  },
+  "homepage": "https://github.com/Davi-Coelho/ongaku-guesser#readme",
+  "dependencies": {
+    "consign": "^0.1.6",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.7",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
