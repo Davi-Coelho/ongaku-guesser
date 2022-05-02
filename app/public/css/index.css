@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'Oswald';
+    src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+}
+
+* {
+    font-family: 'Oswald', sans-serif;
+}
+
+body {
+    display: flex;
+    color: aliceblue;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(48, 48, 48);
+    margin: 0;
+}
+
+#guesses {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="text"], span {
+    font-size: 1.3em;
+    height: 30px;
+    width: 400px;
+    color: #e0e0e0;
+    background-color: rgb(58, 58, 58);
+    line-height: 1.5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #999;
+    outline: none;
+}
+
+#player {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+#progress {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 30px;
+    width: 200px;
+    border: 1px solid #e0e0e0;
+}
+
+#progress-bar {
+    height: 28px;
+    width: 0px;
+    max-width: 200px;
+    background-color: #e0e0e0;
+}

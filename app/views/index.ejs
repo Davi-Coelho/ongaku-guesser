@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
     <title>Ongaku Guesser</title>
 </head>
+
 <body>
-    
+    <h1>Ongaku Guesser</h1>
+    <input type="text" name="guess" id="guess" placeholder="Digite a resposta aqui...">
+    <div id="guesses">
+        <span id="guess-1"></span>
+        <span id="guess-2"></span>
+        <span id="guess-3"></span>
+        <span id="guess-4"></span>
+        <span id="guess-5"></span>
+        <span id="guess-6"></span>
+    </div>
+    <div id="player">
+        <button id="play-pause-button">Play</button>
+        <div id="progress">
+            <div id="progress-bar"></div>
+        </div>
+        <audio id="music" hidden>
+            <source src="https://p.scdn.co/mp3-preview/cf645a49f67b0c5bb66cc904dc254b1b20c2b87c?cid=5247577196ba4ee187432d7ab7b696cc">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <script src="js/index.js"></script>
 </body>
+
 </html>
