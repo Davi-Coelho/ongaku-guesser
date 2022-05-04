@@ -4,7 +4,7 @@ const { PlaylistModel } = require('../config/dbConnection')
 const Playlist = require('../app/models/PlaylistDAO')()
 const { CurrentTrackModel } = require('../config/dbConnection')
 
-cron.schedule('* * * * *', updateMusic, {
+cron.schedule('0 0 * * *', updateMusic, {
     scheduled: true,
     timezone: 'America/Sao_Paulo'
 })

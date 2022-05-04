@@ -3,10 +3,18 @@ const axios = require('axios')
 
 module.exports.index = async (application, req, res) => {
 
+    const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
+    const playlists = await PlaylistDAO.getPlaylists()
+    const playlistTracks = playlists.map(el => el.tracks)
+    let allTracks = []
+    playlistTracks.forEach(el => allTracks = allTracks.concat(el))
+    allTracks = allTracks.map(el => `${el.artist} - ${el.name}`)
     const CurrentTrackDAO = new application.app.models.CurrentTrackDAO(application.db.CurrentTrackModel)
     const trackData = await CurrentTrackDAO.getCurrentTrack()
+    const trackUrl = trackData.url
+    const trackName = `${trackData.artist} - ${trackData.name}`
 
-    res.render('index', { trackData: trackData })
+    res.render('index', { trackName, trackUrl, allTracks })
 }
 
 module.exports.insertPlaylist = (application, req, res) => {

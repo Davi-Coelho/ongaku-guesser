@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Oswald';
-    src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+    src: url('../fonts/Oswald-Regular.ttf') format('truetype');
 }
 
 * {
@@ -18,6 +18,10 @@ body {
     margin: 0;
 }
 
+h1 {
+    font-size: 3em;
+}
+
 #guesses {
     display: flex;
     flex-direction: column;
@@ -26,8 +30,9 @@ body {
     gap: 10px;
 }
 
-input[type="text"], span {
-    font-size: 1.3em;
+input[type="text"],
+#guesses > span {
+    font-size: 1.2em;
     height: 30px;
     width: 400px;
     color: #e0e0e0;
@@ -62,4 +67,41 @@ input[type="text"], span {
     width: 0px;
     max-width: 200px;
     background-color: #e0e0e0;
+}
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    color: #000000;
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #000000;
 }

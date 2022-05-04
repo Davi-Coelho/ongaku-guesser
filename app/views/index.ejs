@@ -6,12 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/modal.css">
     <title>Ongaku Guesser</title>
 </head>
 
 <body>
     <h1>Ongaku Guesser</h1>
-    <input type="text" name="guess" id="guess" placeholder="Digite a resposta aqui...">
+    <form id="guess-form" autocomplete="off" action="">
+        <div class="autocomplete">
+            <input type="text" name="guess" id="guess" placeholder="Digite a resposta aqui...">
+        </div>
+    </form>
     <div id="guesses">
         <span id="guess-1"></span>
         <span id="guess-2"></span>
@@ -26,10 +31,21 @@
             <div id="progress-bar"></div>
         </div>
         <audio id="music" hidden>
-            <source src=<%=trackData.url %>>
+            <source src=<%=trackUrl %>>
             Your browser does not support the audio element.
         </audio>
     </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
+    </div>
+    <script>
+        const trackName = <%- JSON.stringify(trackName) %>
+        const allTracks = <%- JSON.stringify(allTracks) %>
+    </script>
+    <script src="js/autocomplete.js"></script>
     <script src="js/index.js"></script>
 </body>
 
