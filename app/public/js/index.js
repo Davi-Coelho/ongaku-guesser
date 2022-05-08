@@ -1,3 +1,5 @@
+let trackName = ''
+let allTracks = []
 let guesses = 1
 
 const guess = document.querySelector('#guess')
@@ -81,10 +83,15 @@ function progressBarUpdate() {
     }
 }
 
-autocomplete(guess, allTracks);
 
 window.onload = () => {
     console.log(localStorage.getItem('guessed'))
     console.log(new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }))
     console.log(new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }))
+    fetch('/currentsong').then(response => response.text())
+        .then(data => trackName = data)
+    fetch('/alltracks').then(response => response.text())
+        .then(data => allTracks = data)
 }
+
+autocomplete(guess, allTracks);

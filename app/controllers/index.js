@@ -2,26 +2,18 @@ require('dotenv').config()
 const axios = require('axios')
 
 module.exports.index = async (application, req, res) => {
-
-    const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
-    const playlists = await PlaylistDAO.getPlaylists()
-    const playlistTracks = playlists.map(el => el.tracks)
-    let allTracks = []
-    playlistTracks.forEach(el => allTracks = allTracks.concat(el))
-    allTracks = allTracks.map(el => `${el.artist} - ${el.name}`)
     const CurrentTrackDAO = new application.app.models.CurrentTrackDAO(application.db.CurrentTrackModel)
     const trackData = await CurrentTrackDAO.getCurrentTrack()
     const trackUrl = trackData.url
-    const trackName = `${trackData.artist} - ${trackData.name}`
 
-    res.render('index', { trackName, trackUrl, allTracks })
+    res.render('index', { trackUrl })
 }
 
 module.exports.insertPlaylist = (application, req, res) => {
 
     const AccessTokenModel = application.db.AccessTokenModel
-    AccessTokenModel.findOne({}).then(response => {
-        const accessToken = response.token
+    AccessTokenModel.findOne({}).then(result => {
+        const accessToken = result.token
         const playlistId = req.query.id
     
         axios.get(`https://api.spotify.com/v1/playlists/${playlistId}?market=BR`, {
@@ -30,9 +22,9 @@ module.exports.insertPlaylist = (application, req, res) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
             }
-        }).then(response => {
-            const playlistName = response.data.name
-            const allTracks = response.data.tracks.items
+        }).then(result => {
+            const playlistName = result.data.name
+            const allTracks = result.data.tracks.items
             const tracksWithPreview = allTracks.filter(el => el.track.preview_url !== null)
             const tracks = tracksWithPreview.map(el => {
                 return {
@@ -46,7 +38,7 @@ module.exports.insertPlaylist = (application, req, res) => {
             PlaylistDAO.insertPlaylist(playlistId, playlistName, tracks)
         }).catch(err => {
             console.log('err1: ' + err)
-            if (err.response.status === 401) {
+            if (err.result.status === 401) {
 
                 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID
                 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET
@@ -59,9 +51,9 @@ module.exports.insertPlaylist = (application, req, res) => {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Authorization': 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')
                     }
-                }).then(response => {
+                }).then(result => {
 
-                    const newToken = response.data.access_token
+                    const newToken = result.data.access_token
                     console.log(newToken)
                     
                     AccessTokenModel.updateOne(
@@ -72,17 +64,17 @@ module.exports.insertPlaylist = (application, req, res) => {
                         $set: {
                             token: newToken
                         }
-                    }).then(response => {
-                        console.log(response)
+                    }).then(result => {
+                        console.log(result)
                         axios.get(`https://api.spotify.com/v1/playlists/${playlistId}?market=BR`, {
                             headers: {
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json',
                                 'Authorization': `Bearer ${newToken}`
                             }
-                        }).then(response => {
-                            const playlistName = response.data.name
-                            const allTracks = response.data.tracks.items
+                        }).then(result => {
+                            const playlistName = result.data.name
+                            const allTracks = result.data.tracks.items
                             const tracksWithPreview = allTracks.filter(el => el.track.preview_url !== null)
                             const tracks = tracksWithPreview.map(el => {
                                 return {
@@ -103,6 +95,41 @@ module.exports.insertPlaylist = (application, req, res) => {
                 })
             }
         })
+        res.sendStatus(200)
+    })
+}
+
+module.exports.getSong = async (application, req, res) => {
+
+    const CurrentTrackDAO = new application.app.models.CurrentTrackDAO(application.db.CurrentTrackModel)
+    const trackData = await CurrentTrackDAO.getCurrentTrack()
+    const trackName = `${trackData.artist} - ${trackData.name}`
+
+    res.send(trackName)
+}
+
+module.exports.getAllTracks = async (application, req, res) => {
+
+    const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
+    const playlists = await PlaylistDAO.getPlaylists()
+    const playlistTracks = playlists.map(el => el.tracks)
+    let allTracks = []
+    playlistTracks.forEach(el => allTracks = allTracks.concat(el))
+    allTracks = allTracks.map(el => `${el.artist} - ${el.name}`)
+
+    res.send(allTracks)
+}
+
+module.exports.updateSong = async (application, req, res) => {
+    
+    const CurrentTrackDAO = new application.app.models.CurrentTrackDAO(application.db.CurrentTrackModel)
+    const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
+    const playlists = await PlaylistDAO.getPlaylists()
+    const playlist = playlists[Math.floor(Math.random() * playlists.length)]
+    const tracks = playlist.tracks
+    const track = tracks[Math.floor(Math.random() * tracks.length)]
+
+    CurrentTrackDAO.updateCurrentTrack(track, () => {
         res.sendStatus(200)
     })
 }
