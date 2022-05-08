@@ -38,7 +38,7 @@ const PlaylistSchema = mongoose.Schema({
     ]
 })
 
-const CurrentTrackSchema = mongoose.Schema({
+const TrackSchema = mongoose.Schema({
     id: {
         type: String,
         required: true
@@ -54,6 +54,10 @@ const CurrentTrackSchema = mongoose.Schema({
     url: {
         type: String,
         required: true
+    },
+    date: {
+        type: String,
+        required: true
     }
 })
 
@@ -65,7 +69,7 @@ const AccessTokenSchema = mongoose.Schema({
 })
 
 const PlaylistModel = mongoose.model('playlists', PlaylistSchema)
-const CurrentTrackModel = mongoose.model('currenttrack', CurrentTrackSchema)
+const TrackModel = mongoose.model('tracks', TrackSchema)
 const AccessTokenModel = mongoose.model('accesstoken', AccessTokenSchema)
 
-module.exports = { PlaylistModel, CurrentTrackModel, AccessTokenModel }
+module.exports = { PlaylistModel, TrackModel, AccessTokenModel }

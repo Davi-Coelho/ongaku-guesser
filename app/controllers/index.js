@@ -2,8 +2,10 @@ require('dotenv').config()
 const axios = require('axios')
 
 module.exports.index = async (application, req, res) => {
-    const CurrentTrackDAO = new application.app.models.CurrentTrackDAO(application.db.CurrentTrackModel)
-    const trackData = await CurrentTrackDAO.getCurrentTrack()
+
+    const today = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+    const TrackDAO = new application.app.models.TrackDAO(application.db.TrackModel)
+    const trackData = await TrackDAO.getCurrentTrack(today)
     const trackUrl = trackData.url
 
     res.render('index', { trackUrl })
@@ -101,8 +103,9 @@ module.exports.insertPlaylist = (application, req, res) => {
 
 module.exports.getSong = async (application, req, res) => {
 
-    const CurrentTrackDAO = new application.app.models.CurrentTrackDAO(application.db.CurrentTrackModel)
-    const trackData = await CurrentTrackDAO.getCurrentTrack()
+    const today = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+    const TrackDAO = new application.app.models.TrackDAO(application.db.TrackModel)
+    const trackData = await TrackDAO.getCurrentTrack(today)
     const trackName = `${trackData.artist} - ${trackData.name}`
 
     res.send(trackName)
@@ -122,14 +125,14 @@ module.exports.getAllTracks = async (application, req, res) => {
 
 module.exports.updateSong = async (application, req, res) => {
     
-    const CurrentTrackDAO = new application.app.models.CurrentTrackDAO(application.db.CurrentTrackModel)
+    const TrackDAO = new application.app.models.TrackDAO(application.db.TrackModel)
     const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
     const playlists = await PlaylistDAO.getPlaylists()
     const playlist = playlists[Math.floor(Math.random() * playlists.length)]
     const tracks = playlist.tracks
     const track = tracks[Math.floor(Math.random() * tracks.length)]
 
-    CurrentTrackDAO.updateCurrentTrack(track, () => {
+    TrackDAO.insertNewTrack(track, () => {
         res.sendStatus(200)
     })
 }
