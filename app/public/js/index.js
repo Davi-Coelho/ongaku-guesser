@@ -91,7 +91,8 @@ window.onload = () => {
     fetch('/currentsong').then(response => response.text())
         .then(data => trackName = data)
     fetch('/alltracks').then(response => response.text())
-        .then(data => allTracks = data)
+        .then(data => { 
+            allTracks = JSON.parse(data)
+            autocomplete(guess, allTracks);
+        })
 }
-
-autocomplete(guess, allTracks);
