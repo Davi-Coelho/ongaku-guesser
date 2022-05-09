@@ -6,38 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/autocomplete.css">
     <title>Ongaku Guesser</title>
 </head>
 
 <body>
-    <h1>Ongaku Guesser</h1>
-    <form id="guess-form" autocomplete="off" action="">
-        <div class="autocomplete">
-            <input type="text" name="guess" id="guess" placeholder="Digite a resposta aqui...">
-        </div>
-    </form>
-    <div id="guesses">
-        <span id="guess-1"></span>
-        <span id="guess-2"></span>
-        <span id="guess-3"></span>
-        <span id="guess-4"></span>
-        <span id="guess-5"></span>
-        <span id="guess-6"></span>
+    <div id="top-page">
+        <h1>Ongaku Guesser</h1>
     </div>
-    <div id="player">
-        <button id="play-pause-button">Play</button>
-        <div id="progress">
-            <div id="progress-bar"></div>
+    <div id="main">
+        <form id="guess-form" autocomplete="off" action="">
+            <div class="autocomplete">
+                <input type="text" name="guess" id="guess" placeholder="Digite a resposta aqui...">
+            </div>
+        </form>
+        <div id="finished"></div>
+        <div id="guesses">
+            <span id="guess-1"></span>
+            <span id="guess-2"></span>
+            <span id="guess-3"></span>
+            <span id="guess-4"></span>
+            <span id="guess-5"></span>
+            <span id="guess-6"></span>
         </div>
-        <audio id="music" hidden>
-            Your browser does not support the audio element.
-        </audio>
     </div>
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+    <div id="bottom-page">
+        <div id="player">
+            <div id="progress">
+                <div class="divider" style="width: 30px;"></div>
+                <div class="divider" style="width: 30px;"></div>
+                <div class="divider" style="width: 60px;"></div>
+                <div class="divider" style="width: 60px;"></div>
+                <div class="divider" style="width: 120px;"></div>
+                <div id="progress-bar"></div>
+            </div>
+            <button class="play-button"></button>
+            <audio id="music" hidden>
+                Your browser does not support the audio element.
+            </audio>
         </div>
     </div>
     <script src="js/autocomplete.js"></script>
