@@ -15,7 +15,7 @@ body {
     background-color: rgb(48, 48, 48);
     min-height: 100vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 200px 1fr 200px;
+    grid-template-rows: 200px 1fr 250px;
     grid-template-areas:
         'top-page'
         'main'
@@ -28,6 +28,8 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 2.2em;
+    border-bottom: 1px solid aliceblue;
+    box-sizing: border-box;
     grid-area: top-page;
 }
 
@@ -44,6 +46,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
     grid-area: bottom-page;
 }
 
