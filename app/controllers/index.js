@@ -34,8 +34,8 @@ module.exports.insertPlaylist = (application, req, res) => {
             const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
             PlaylistDAO.insertPlaylist(playlistId, playlistName, tracks)
         }).catch(err => {
-            console.log('err1: ' + err)
-            if (err.result.status === 401) {
+            console.log('err1:' + err)
+            if (err.response.status === 401) {
 
                 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID
                 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET
