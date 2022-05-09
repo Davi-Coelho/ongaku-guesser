@@ -11,6 +11,8 @@ const audio = document.querySelector('#music')
 const finished = document.querySelector('#finished')
 const player = document.querySelector('#player')
 const guessesDiv = document.querySelector('#guesses')
+const rightAnswer = document.querySelector('#right-answer')
+const wrongAnswer = document.querySelector('#wrong-answer')
 
 playButton.onclick = playPause
 music.ontimeupdate = progressBarUpdate
@@ -21,12 +23,17 @@ function tryGuess(e) {
     if (guess.value.length > 5) {
         if (e.keyCode === 13) {
 
+            const guessesSpan = document.querySelector(`#guess-${guesses}`)
+
             if (guess.value === trackName) {
+                guessesSpan.style.color = 'green'
+                guessesSpan.innerHTML = '<i class="fas fa-check"></i> ' + guess.value
                 const result = document.createElement('div')
                 result.classList.add('result')
                 result.innerHTML = `<p>Parabéns, você acertou!!! </p>
                                     <p>Música: ${trackName}</p>`
-                finished.appendChild(result)
+                finished.insertBefore(result, finished.firstChild)
+                rightAnswer.style.display = 'block'
                 finished.style.display = 'block'
                 guessForm.style.display = 'none'
                 player.style.display = 'none'
@@ -34,16 +41,18 @@ function tryGuess(e) {
                 localStorage.setItem('guessed', `${new Date().toLocaleDateString('pt-BR')}`)
             }
             else {
-                document.querySelector(`#guess-${guesses}`).innerHTML = guess.value
+                guessesSpan.style.color = 'red'
+                guessesSpan.innerHTML = '<i class="fas fa-times"></i> ' + guess.value
                 guess.value = ''
                 guesses++
 
                 if (guesses === 7) {
-                    const result = document.createElement('span')
+                    const result = document.createElement('div')
                     result.classList.add('result')
                     result.innerHTML = `<p>Você errou! :( </p>
                                         <p>Música: ${trackName}</p>`
-                    finished.appendChild(result)
+                    finished.insertBefore(result, finished.firstChild)
+                    wrongAnswer.style.display = 'block'
                     finished.style.display = 'block'
                     guessForm.style.display = 'none'
                     player.style.display = 'none'
@@ -99,13 +108,15 @@ window.onload = () => {
 
         if (answer === 'true') {
             el.innerHTML = 'Você acertou a música de hoje!'
+            rightAnswer.style.display = 'block'
         }
         else {
             el.innerHTML = 'Você errou a música de hoje!'
+            wrongAnswer.style.display = 'block'
         }
 
         el.classList.add('finished-result')
-        finished.appendChild(el)
+        finished.insertBefore(el, finished.firstChild)
         finished.style.display = 'flex'
         guessForm.style.display = 'none'
         guessesDiv.style.display = 'none'

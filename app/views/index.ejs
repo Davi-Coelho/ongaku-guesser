@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/autocomplete.css">
+    <link rel="stylesheet" href="css/checkmark.css">
+    <script src="https://kit.fontawesome.com/52557e8140.js" crossorigin="anonymous"></script>
     <title>Ongaku Guesser</title>
 </head>
 
@@ -20,7 +22,21 @@
                 <input type="text" name="guess" id="guess" placeholder="Digite a resposta aqui...">
             </div>
         </form>
-        <div id="finished"></div>
+        <div id="finished">
+            <div id="right-answer" class="wrapper"> 
+                <svg class="checkmark right-background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle right-line" cx="26" cy="26" r="25" fill="none" />
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </div>
+            <div id="wrong-answer" class="wrapper"> 
+                <svg class="checkmark wrong-background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle wrong-line" cx="26" cy="26" r="25" fill="none" />
+                    <path class="checkmark__check" fill="none" d="M 13 13 l 26 26 
+                                                                  M 39 13 l -26 26" />
+                </svg>
+            </div>
+        </div>
         <div id="guesses">
             <span id="guess-1"></span>
             <span id="guess-2"></span>
@@ -40,7 +56,9 @@
                 <div class="divider" style="width: 120px;"></div>
                 <div id="progress-bar"></div>
             </div>
-            <button class="play-button"></button>
+            <div id="play-area">
+                <button class="play-button"></button>
+            </div>
             <audio id="music" hidden>
                 Your browser does not support the audio element.
             </audio>

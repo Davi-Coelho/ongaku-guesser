@@ -15,7 +15,7 @@ body {
     background-color: rgb(48, 48, 48);
     min-height: 100vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 200px 1fr 250px;
+    grid-template-rows: 150px 1fr 225px;
     grid-template-areas:
         'top-page'
         'main'
@@ -27,7 +27,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 2.2em;
+    font-size: 2em;
     border-bottom: 1px solid aliceblue;
     box-sizing: border-box;
     grid-area: top-page;
@@ -38,6 +38,7 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    gap: 15px;
     grid-area: main;
 }
 
@@ -60,8 +61,8 @@ body {
 
 input[type="text"],
 #guesses>span {
-    font-size: 1.2em;
-    height: 30px;
+    font-size: 1.1em;
+    height: 25px;
     width: 400px;
     color: #e0e0e0;
     background-color: rgb(58, 58, 58);
@@ -115,7 +116,11 @@ input[type="text"],
 
 #finished {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 2em;
+    gap: 15px;
     grid-area: main;
 }
 
@@ -133,6 +138,15 @@ input[type="text"],
     padding: 10px;
     border: 3px aliceblue solid;
     border-radius: 20px;
+}
+
+#play-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #414141;
+    padding: 10px 15px;
+    border-radius: 15px;
 }
 
 .play-button {
