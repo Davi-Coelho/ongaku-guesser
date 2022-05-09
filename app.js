@@ -1,4 +1,4 @@
 const app = require('./config/server')
-const port = 3000
+const port = 3001
 
 app.listen(port, () => console.log(`Rodando na porta ${port}...`))

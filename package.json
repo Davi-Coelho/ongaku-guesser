@@ -4,7 +4,7 @@
   "description": "Jogo para adivinhação de músicas",
   "main": "app.js",
   "scripts": {
-    "start": "start http://localhost:3000 & nodemon app.js",
+    "start": "start http://localhost:3001 & nodemon app.js",
     "serve": "pm2 start app.js --name ongaku-guesser"
   },
   "repository": {
