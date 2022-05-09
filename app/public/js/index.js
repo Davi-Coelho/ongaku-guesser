@@ -9,6 +9,7 @@ const music = document.querySelector('#music')
 const progressBar = document.getElementById('progress-bar')
 const modal = document.querySelector('#myModal')
 const modalSpan = document.querySelector('.close')
+const audio = document.querySelector('#music')
 
 playPauseButton.onclick = playPause
 music.ontimeupdate = progressBarUpdate
@@ -86,10 +87,16 @@ function progressBarUpdate() {
 
 window.onload = () => {
     console.log(localStorage.getItem('guessed'))
-    console.log(new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }))
-    console.log(new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }))
-    fetch('/currentsong').then(response => response.text())
-        .then(data => trackName = data)
+    fetch(`/currentsong?date=${new Date().toLocaleDateString('pt-BR')}`)
+        .then(response => response.text())
+        .then(response => JSON.parse(response))
+        .then(data => {
+            trackName = data.trackName
+            trackUrl = data.trackUrl
+            const trackSource = document.createElement('source')
+            trackSource.setAttribute('src', trackUrl)
+            music.appendChild(trackSource)
+        })
     fetch('/alltracks').then(response => response.text())
         .then(data => { 
             allTracks = JSON.parse(data)

@@ -3,12 +3,7 @@ const axios = require('axios')
 
 module.exports.index = async (application, req, res) => {
 
-    const today = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' })
-    const TrackDAO = new application.app.models.TrackDAO(application.db.TrackModel)
-    const trackData = await TrackDAO.getCurrentTrack(today)
-    const trackUrl = trackData.url
-
-    res.render('index', { trackUrl })
+    res.render('index')
 }
 
 module.exports.insertPlaylist = (application, req, res) => {
@@ -103,12 +98,15 @@ module.exports.insertPlaylist = (application, req, res) => {
 
 module.exports.getSong = async (application, req, res) => {
 
-    const today = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+    const today = req.query.date
     const TrackDAO = new application.app.models.TrackDAO(application.db.TrackModel)
     const trackData = await TrackDAO.getCurrentTrack(today)
-    const trackName = `${trackData.artist} - ${trackData.name}`
-
-    res.send(trackName)
+    const data = {
+        trackName: `${trackData.artist} - ${trackData.name}`,
+        trackUrl: trackData.url
+    }
+    
+    res.send(data)
 }
 
 module.exports.getAllTracks = async (application, req, res) => {
