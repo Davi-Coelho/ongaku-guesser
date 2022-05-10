@@ -4,8 +4,11 @@ class TrackDAO {
     }
 
     getCurrentTrack = async (date) => {
-        const currenTrack = await this._TrackModel.findOne({ date: date })
-        return currenTrack
+        return await this._TrackModel.findOne({ date: date })
+    }
+
+    getRaffledTracks = async () => {
+        return await this._TrackModel.find({})
     }
 
     insertNewTrack = (track, today, callback) => {
