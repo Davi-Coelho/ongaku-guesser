@@ -4,8 +4,8 @@ class TrackDAO {
     }
 
     getCurrentTrack = async (date) => {
-        const currenTrack = await this._TrackModel.find({ date: date })
-        return currenTrack[0]
+        const currenTrack = await this._TrackModel.findOne({ date: date })
+        return currenTrack
     }
 
     insertNewTrack = (track, today, callback) => {
