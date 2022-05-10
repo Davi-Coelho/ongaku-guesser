@@ -5,6 +5,7 @@ let guesses = 1
 const guess = document.querySelector('#guess')
 const guessForm = document.querySelector('#guess-form')
 const playButton = document.querySelector('.play-button')
+const skipButton = document.querySelector('#skip-button')
 const music = document.querySelector('#music')
 const progressBar = document.getElementById('progress-bar')
 const audio = document.querySelector('#music')
@@ -15,6 +16,7 @@ const rightAnswer = document.querySelector('#right-answer')
 const wrongAnswer = document.querySelector('#wrong-answer')
 
 playButton.onclick = playPause
+skipButton.onclick = skipTime
 music.ontimeupdate = progressBarUpdate
 guess.onkeyup = tryGuess
 
@@ -26,6 +28,8 @@ function tryGuess(e) {
             const guessesSpan = document.querySelector(`#guess-${guesses}`)
 
             if (guess.value === trackName) {
+                guesses = 6
+                playPause()
                 guessesSpan.style.color = 'green'
                 guessesSpan.innerHTML = '<i class="fas fa-check"></i> ' + guess.value
                 const result = document.createElement('div')
@@ -71,6 +75,16 @@ function playPause() {
     }
     else {
         music.pause()
+    }
+}
+
+function skipTime() {
+    if (guesses < 6) {
+        const skipSpan = document.querySelector(`#guess-${guesses}`)
+        skipSpan.style.color = 'red'
+        skipSpan.innerHTML = '<i class="fas fa-times"></i> SKIPPED '
+        guesses++
+        playPause()
     }
 }
 
@@ -123,6 +137,7 @@ window.onload = () => {
         player.style.display = 'none'
     }
     else {
+        music.volume = 0.7
         fetch(`/currentsong?date=${new Date().toLocaleDateString('pt-BR')}`)
             .then(response => response.text())
             .then(response => JSON.parse(response))

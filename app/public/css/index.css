@@ -140,6 +140,14 @@ input[type="text"],
     border-radius: 20px;
 }
 
+#controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 #play-area {
     display: flex;
     justify-content: center;
@@ -155,11 +163,36 @@ input[type="text"],
     height: 30px;
     border: 15px solid #202020;
     border-width: 15px 0px 15px 30px;
-    border-color: transparent transparent transparent #797979;
+    border-color: transparent transparent transparent #c9c9c9;
     box-sizing: border-box;
     transition: 0.3s;
 }
 
 .play-button:hover {
-    border-color: transparent transparent transparent #a7a7a7;
+    border-color: transparent transparent transparent #ffffff;
+}
+
+#skip-area {
+    display: flex;
+    height: 50px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    background-color: #414141;
+    padding: 10px 15px;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+#skip-button {
+    color: #c9c9c9;
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+#skip-button:hover {
+    color: #ffffff
 }
