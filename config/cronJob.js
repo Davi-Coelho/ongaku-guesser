@@ -14,6 +14,7 @@ async function updateMusic() {
 
     console.log('Updating...')
 
+    const today = new Date().toLocaleDateString('pt-BR', 'America/Sao_Paulo')
     const TrackDAO = new Track(TrackModel)
     const PlaylistDAO = new Playlist(PlaylistModel)
     const playlists = await PlaylistDAO.getPlaylists()
@@ -21,7 +22,7 @@ async function updateMusic() {
     const tracks = playlist.tracks
     const track = tracks[Math.floor(Math.random() * tracks.length)]
 
-    TrackDAO.insertNewTrack(track, (result) => {
+    TrackDAO.insertNewTrack(track, today, (result) => {
         console.log('Current Song updated!')
     })
 }   

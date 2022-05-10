@@ -123,6 +123,7 @@ module.exports.getAllTracks = async (application, req, res) => {
 
 module.exports.updateSong = async (application, req, res) => {
     
+    const today = new Date().toLocaleDateString('pt-BR', 'America/Sao_Paulo')
     const TrackDAO = new application.app.models.TrackDAO(application.db.TrackModel)
     const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
     const playlists = await PlaylistDAO.getPlaylists()
@@ -130,7 +131,7 @@ module.exports.updateSong = async (application, req, res) => {
     const tracks = playlist.tracks
     const track = tracks[Math.floor(Math.random() * tracks.length)]
 
-    TrackDAO.insertNewTrack(track, () => {
+    TrackDAO.insertNewTrack(track, today, () => {
         res.sendStatus(200)
     })
 }

@@ -8,16 +8,38 @@ class TrackDAO {
         return currenTrack[0]
     }
 
-    insertNewTrack = (track, callback) => {
-        this._TrackModel.create({
-            id: track.id,
-            name: track.name,
-            artist: track.artist,
-            url: track.url,
-            date: new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' })
-        }).then(result => {
-            console.log(result)
-            callback()
+    insertNewTrack = (track, today, callback) => {
+        this._TrackModel.findOne({ date: today }).then(result => {
+            
+            if (result) {
+                this._TrackModel.updateOne({
+                    id: result.id
+                }, 
+                {
+                    $set: {
+                        id: track.id,
+                        name: track.name,
+                        artist: track.artist,
+                        url: track.url,
+                        date: today
+                    }
+                }).then(result => {
+                    console.log(result)
+                    callback()
+                })
+            }
+            else {
+                this._TrackModel.create({
+                    id: track.id,
+                    name: track.name,
+                    artist: track.artist,
+                    url: track.url,
+                    date: today
+                }).then(result => {
+                    console.log(result)
+                    callback()
+                })
+            }
         })
     }
 
