@@ -1,8 +1,11 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/ongakuguesser')
-    .then(() => console.log('Conectado ao banco de dados!'))
-    .catch(() => console.log('Erro ao se conectar com o banco de dados!'))
+const {
+    DB,
+    DB_USER,
+    DB_PASS
+} = process.env
 
 const PlaylistSchema = mongoose.Schema({
     id: {
@@ -71,5 +74,16 @@ const AccessTokenSchema = mongoose.Schema({
 const PlaylistModel = mongoose.model('playlists', PlaylistSchema)
 const TrackModel = mongoose.model('tracks', TrackSchema)
 const AccessTokenModel = mongoose.model('accesstoken', AccessTokenSchema)
+
+async function initDatabase() {
+    try {
+        await mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@mongo:27017/${DB}?authSource=admin`)
+        console.log('Conectado ao banco de dados!')
+    } catch (err) {
+        console.log(`mongoConnectError: ${err}`)
+    }
+}
+
+initDatabase()
 
 module.exports = { PlaylistModel, TrackModel, AccessTokenModel }
