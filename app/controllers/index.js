@@ -123,7 +123,7 @@ module.exports.getAllTracks = async (application, req, res) => {
 
 module.exports.updateSong = async (application, req, res) => {
 
-    const today = new Date().toLocaleDateString('pt-BR', 'America/Sao_Paulo')
+    const today = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo'})
     const TrackDAO = new application.app.models.TrackDAO(application.db.TrackModel)
     const PlaylistDAO = new application.app.models.PlaylistDAO(application.db.PlaylistModel)
 
