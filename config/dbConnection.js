@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 const {
     DB,
     DB_USER,
-    DB_PASS
+    DB_PASS,
+    SPOTIFY_ACCESS_TOKEN
 } = process.env
 
 const PlaylistSchema = mongoose.Schema({
@@ -81,6 +82,17 @@ async function initDatabase() {
         console.log('Conectado ao banco de dados!')
     } catch (err) {
         console.log(`mongoConnectError: ${err}`)
+    }
+
+    const accessToken = await AccessTokenModel.findOne({})
+
+    if (accessToken === null) {
+        await AccessTokenModel.create({
+            token: SPOTIFY_ACCESS_TOKEN
+        })
+        console.log('Token registrado!')
+    } else {
+        console.log('Token já existe no banco de dados!')
     }
 }
 
