@@ -14,7 +14,7 @@ async function updateMusic() {
 
     console.log('Updating...')
 
-    const today = new Date().toLocaleDateString('pt-BR', 'America/Sao_Paulo')
+    const today = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo'})
     const TrackDAO = new Track(TrackModel)
     const PlaylistDAO = new Playlist(PlaylistModel)
     const playlists = await PlaylistDAO.getPlaylists()
